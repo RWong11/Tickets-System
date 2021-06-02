@@ -1,6 +1,6 @@
 <template>
   <div>
-      <b-table stripped hover :items="items"></b-table>
+      <b-table stripped hover :items="items" :fields="fields"></b-table>
   </div>
 </template>
 
@@ -8,7 +8,8 @@
 export default {
     name: 'Table',
     props: {
-        items: Array
+        items: Array,
+        fields: Array
     }
 
 }
