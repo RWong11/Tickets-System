@@ -1,9 +1,12 @@
 <template>
   <div>
     <h1>Categorias</h1>
-    <Table :items="categorias" :fields="campos" :busy="loading">
+
+    <Table :items="categorias" :fields="campos" :busy="loading" :totalRows="categorias.length">
       <template slot="actions" slot-scope="{ item }">
-        <b-button @click="onEliminar(item)">Eliminar</b-button>
+        <b-button pill variant="danger" @click="onEliminar(item)">
+          <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+        </b-button>
       </template>
     </Table>
   </div>
@@ -21,9 +24,9 @@ export default {
   data() {
     return {
       campos: [
-        { key: "ID", label: "ID" },
-        { key: "Nombre" },
-        { key: "actions", label: "Acciones" },
+        { key: "ID", label: "ID", sortable: false },
+        { key: "Nombre", sortable: true },
+        { key: "actions", label: "Acciones", sortable: false },
       ],
     };
   },
@@ -56,7 +59,7 @@ export default {
                   type: "success",
                   title: response.data.mensaje,
                 });
-                setTimeout(() => this.setCategorias(), 1000);
+                this.setCategorias();
               },
             });
           }
