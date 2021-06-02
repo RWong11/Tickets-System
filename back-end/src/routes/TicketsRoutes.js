@@ -6,6 +6,6 @@ const {obtener, capturar, editar, eliminar} = require('../controllers/TicketsCon
 routes.get('/Tickets/', obtener);
 routes.post('/Tickets/', capturar);
 routes.put('/Tickets/:id', editar);
-routes.delete('/Tickets/:id', eliminar);
+routes.delete('/Tickets/', eliminar);
 
 module.exports = routes;
