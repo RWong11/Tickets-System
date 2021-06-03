@@ -6,6 +6,7 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
+    <notifications position="bottom right"/>
   </div>
 </template>
 

@@ -8,7 +8,7 @@
                 id="nombre"
                 titulo="Nombre: "
                 placeholder="Ingrese el nombre"
-                :maxlength="50"
+                :maxlength="54"
                 :error="erroresValidacion && !validarNombre"
                 mensajeError="Debe ingrese un nombre."
             />
@@ -168,9 +168,20 @@ export default {
                     params: this.ticket,
                     onComplete: (response) => {
                         console.log(response.data);
+                        this.$notify({
+                            type: 'success',
+                            title: response.data.mensaje
+                        });
+                        this.$router.push({
+                            name: 'Tickets'
+                        })
                     },
                     onError: (error) => {
-                        console.log(error.response);
+                        console.log(error.response.data.mensaje);
+                        this.$notify({
+                            type: 'error',
+                            title: error.response.data.mensaje
+                        })
                     }
                 })
                 return;
