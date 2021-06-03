@@ -7,6 +7,6 @@ routes.get('/Tickets/', obtener);
 routes.get('/Tickets/:id', obtenerUno);
 routes.post('/Tickets/', capturar);
 routes.put('/Tickets/:id', editar);
-routes.delete('/Tickets/', eliminar);
+routes.delete('/Tickets/:id', eliminar);
 
 module.exports = routes;

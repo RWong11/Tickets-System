@@ -67,7 +67,6 @@ function capturar(req, res){
     
     function editar(req, res){
         if(connection){
-            console.log(req.body);
             const {id} = req.params;
             const {Descripcion, Prioridad, Personal, Categoria} = req.body;
             
@@ -87,9 +86,9 @@ function capturar(req, res){
 
 function eliminar(req, res) {
     if(connection) {
-        const {ID} = req.body;
+        const {id} = req.params;
         let sql = "UPDATE Tickets SET Baja = 1 WHERE ID = ?";
-        connection.query(sql, [ID], (err, data) => {
+        connection.query(sql, [id], (err, data) => {
             if(err)
                 res.json(err);
             else {

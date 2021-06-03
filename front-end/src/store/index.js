@@ -41,8 +41,12 @@ export default new Vuex.Store({
       axios.put(`http://localhost:3000/tickets/${id}`, params)
       .then(onComplete)
       .catch(onError)
-
     },
+    eliminar_ticket({commit}, {id, onComplete, onError}) {
+      axios.delete(`http://localhost:3000/tickets/${id}`)
+      .then(onComplete)
+      .catch(onError)
+    }
   },
   
   modules: {

@@ -76,7 +76,7 @@ export default {
         ...mapState(['tickets'])
     },
     methods: {
-        ...mapActions(['set_tickets']),
+        ...mapActions(['set_tickets', 'eliminar_ticket']),
         onEstatus(item) {
             console.log("Estatus", item.item.IDTicket)
         },
@@ -92,7 +92,40 @@ export default {
             })
         },
         onEliminar(item) {
-            console.log("Eliminar", item.item.IDTicket)
+
+            this.$bvModal
+            .msgBoxConfirm("Esta opción no se puede deshacer.", {
+            title: "Eliminar Ticket",
+            size: "sm",
+            buttonSize: "sm",
+            okVariant: "danger",
+            okTitle: "Aceptar",
+            cancelTitle: "Cancelar",
+            footerClass: "p-2",
+            centered: true,
+            })
+            .then((value) => {
+            if (value) {
+                this.eliminar_ticket({
+
+                    id: item.item.IDTicket,
+                    onComplete: response => {
+                        this.$notify({
+                            type: "success",
+                            title: response.data.mensaje
+                        });
+                        setTimeout(() => this.set_tickets(), 1000);
+                    },
+                    onError: error => {
+                        console.log(error)
+                    }
+                })
+            }
+            })
+            .catch((err) => {
+            // An error occurred
+            });
+
         }
     },
     created() {
