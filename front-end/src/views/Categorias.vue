@@ -1,8 +1,15 @@
 <template>
   <div>
-    <h1>Categorias</h1>
+    <b-container>
+        <b-col align-self="start"><h1>Categorias</h1></b-col>
+    </b-container>
 
-    <Table :items="categorias" :fields="campos" :busy="loading" :totalRows="categorias.length">
+    <Table
+      :items="categorias"
+      :fields="campos"
+      :busy="loading"
+      :totalRows="categorias.length"
+    >
       <template slot="actions" slot-scope="{ item }">
         <b-button pill variant="danger" @click="onEliminar(item)">
           <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
@@ -24,9 +31,9 @@ export default {
   data() {
     return {
       campos: [
-        { key: "ID", label: "ID", sortable: false },
-        { key: "Nombre", sortable: true },
-        { key: "actions", label: "Acciones", sortable: false },
+        { key: "ID", label: "ID", sortable: false, thClass: 'col-md-1 table-dark' },
+        { key: "Nombre", sortable: true, thClass: 'col-md-8 table-dark' },
+        { key: "actions", label: "Acciones", sortable: false, thClass: 'col-md-2 table-dark' },
       ],
     };
   },

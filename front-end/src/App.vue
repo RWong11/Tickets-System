@@ -27,10 +27,6 @@ export default {
   color: #2c3e50;
 }
 
-h1 {
-  text-align: center;
-}
-
 #nav {
   padding: 30px;
   text-align: center;

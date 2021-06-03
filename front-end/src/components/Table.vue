@@ -2,13 +2,10 @@
   <div>
     <b-container class="fluid">
       <b-row align-h="between">
-        <b-col lg="5" md="6" class="my-1">
+        <b-col lg="3"  class="my-1">
           <b-form-group
             label="Registros por página"
             label-for="per-page-select"
-            label-cols-sm="6"
-            label-cols-md="4"
-            label-cols-lg="3"
             label-align-sm="right"
             label-size="sm"
             class="mb-0"
@@ -17,11 +14,11 @@
               id="per-page-select"
               v-model="perPage"
               :options="pageOptions"
-              size="sm"
+              class="form-select"
             ></b-form-select>
           </b-form-group>
         </b-col>
-        <b-col lg="6" class="my-1">
+        <b-col lg="7" class="my-1">
           <b-form-group
             label="Filtro"
             label-for="filter-input"
@@ -48,9 +45,8 @@
         </b-col>
       </b-row>
       <b-row class="justify-content-md-center">
-        <b-col lg="12" md="6" class="my-1">
+        <b-col lg="12" md="6" class="my-1 text-center">
           <b-table
-            head-variant="dark"
             hover
             outlined
             fixed
@@ -79,7 +75,10 @@
         </b-col>
       </b-row>
       <b-row>
-        <b-col lg="12" md="6" class="my-1">
+        <b-col lg="6" md="6" class="my-1">
+          Visualizando {{ (currentPage * perPage) - perPage + 1 }} a {{ (currentPage * perPage) }} de {{ totalRows }} registros
+        </b-col>
+        <b-col lg="6" md="6" class="my-1">
           <b-pagination
             v-model="currentPage"
             :total-rows="totalRows"
@@ -97,8 +96,6 @@
 
 
 <script>
-import { BFormSelect } from 'bootstrap-vue'
-
 export default {
   name: "Table",
   props: {
@@ -106,9 +103,6 @@ export default {
     fields: Array,
     busy: Boolean,
     totalRows: Number,
-  },
-  components: {
-    BFormSelect
   },
   data() {
     return {
