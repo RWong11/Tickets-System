@@ -7,14 +7,14 @@
         </b-button> 
     </div>
     <Table :items='tickets' :fields='fields'>
-        <template slot="actions">
-            <b-button pill variant="secondary" >
+        <template slot="actions" slot-scope="{item}">
+            <b-button @click="onEstatus(item)" pill variant="secondary" >
                 <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
             </b-button>
-            <b-button pill variant="secondary" >
+            <b-button @click="onEditar(item)" pill variant="secondary"  >
                 <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
             </b-button>
-            <b-button pill variant="danger" >
+            <b-button @click="onEliminar(item)" pill variant="danger" >
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
             </b-button>
         </template>
@@ -71,16 +71,33 @@ export default {
             }
         ]
       }
-  },
-  computed: {
-      ...mapState(['tickets'])
-  },
-  methods: {
-      ...mapActions(['set_tickets'])
-  },
-  created() {
-      this.set_tickets();
-  }
+    },
+    computed: {
+        ...mapState(['tickets'])
+    },
+    methods: {
+        ...mapActions(['set_tickets']),
+        onEstatus(item) {
+            console.log("Estatus", item.item.IDTicket)
+        },
+        onEditar(item) {
+            console.log("Editar", item.item.IDTicket)
+            this.$router.push({
+                name: "EditarTicket",
+                params: {
+                    id: item.item.IDTicket,
+                    disabledNombre: true,
+                    disabledEstatus: true
+                }
+            })
+        },
+        onEliminar(item) {
+            console.log("Eliminar", item.item.IDTicket)
+        }
+    },
+    created() {
+        this.set_tickets();
+    }
 }
 </script>
 
