@@ -19,12 +19,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   },
   {
-    path: '/Tickets',
+    path: '/tickets',
     name: 'Tickets',
     component: () => import('../views/Tickets.vue')
   },
   {
-    path: '/AgregarTicket',
+    path: '/tickets/agregarTicket',
     name: 'AgregarTicket',
     component: () => import('../views/AgregarTicket.vue')
   }

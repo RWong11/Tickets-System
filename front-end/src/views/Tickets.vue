@@ -2,7 +2,7 @@
   <div class="Tickets">
     <h1>Tickets</h1>
     <div class="Button">
-        <b-button variant="primary" to="../AgregarTicket">Agregar</b-button> 
+        <b-button variant="primary" to="../tickets/agregarTicket">Agregar</b-button> 
     </div>
     <Table :items='tickets' :fields='fields'/>
   </div>

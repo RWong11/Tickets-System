@@ -85,7 +85,7 @@ export default {
                     text: "Media"
                 },
                 {
-                    vlaue: 3,
+                    value: 3,
                     text: "Alta"
                 },
             ],
