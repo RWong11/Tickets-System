@@ -2,9 +2,23 @@
   <div class="Tickets">
     <h1>Tickets</h1>
     <div class="Button">
-        <b-button variant="primary" to="../tickets/agregarTicket">Agregar</b-button> 
+        <b-button pill variant="primary" to="../tickets/agregarTicket">
+            <b-icon icon="plus" aria-hidden="true"></b-icon>
+        </b-button> 
     </div>
-    <Table :items='tickets' :fields='fields'/>
+    <Table :items='tickets' :fields='fields'>
+        <template slot="actions">
+            <b-button pill variant="secondary" >
+                <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
+            </b-button>
+            <b-button pill variant="secondary" >
+                <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+            </b-button>
+            <b-button pill variant="danger" >
+                <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+            </b-button>
+        </template>
+    </Table>
   </div>
 </template>
 
@@ -27,7 +41,10 @@ export default {
             {
                 key: 'Descripcion',
                 label: 'Descripción',
-                sortable: false
+                sortable: false,
+                formatter: value => {
+                    return value || '-'
+                }
             },
             {
                 key: 'Prioridad',
@@ -46,6 +63,11 @@ export default {
             {
                 key: 'Estatus',
                 sortable: false
+            },
+            {
+                key: 'Actions',
+                label: 'Acciones'
+
             }
         ]
       }
@@ -62,13 +84,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.Tickets {
-    margin-left: 2%;
-    margin-right: 2%;
-}
-
-.Button {
-    text-align: left;
-}
-</style>
