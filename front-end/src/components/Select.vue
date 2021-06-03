@@ -20,7 +20,7 @@
         {{option.text}}
         </option>
       </select>
-        <span v-if="error">{{ mensajeError }}</span>
+        <span v-if="error" class="text-danger">{{ mensajeError }}</span>
   </div>
 </template>
 

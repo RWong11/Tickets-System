@@ -10,7 +10,7 @@
         :disabled="disabled"
         :placeholder="placeholder"
         @input="$emit('input', $event.target.value)"/>
-        <span v-if="error">{{ mensajeError }}</span>
+        <span v-if="error" class="text-danger">{{ mensajeError }}</span>
   </div>
 </template>
 
