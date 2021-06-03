@@ -8,7 +8,7 @@
                 id="nombre"
                 titulo="Nombre: "
                 placeholder="Ingrese el nombre"
-                :maxlength="54"
+                :maxlength="50"
                 :error="erroresValidacion && !validarNombre"
                 mensajeError="Debe ingrese un nombre."
             />

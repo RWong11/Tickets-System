@@ -5,7 +5,7 @@
         :type="tipo" 
         :id="id"
         class="form-control"
-        :value="value"
+        :value="valueText"
         :maxlength="maxlength"
         :disabled="disabled"
         :placeholder="placeholder"
@@ -22,7 +22,10 @@
             required: true
         },
         titulo: String,
-        value: [Number, String],
+        valueText: {
+            type: [Number, String],
+            default: ''
+        },
         tipo: {
             type: String,
             default: 'text'
