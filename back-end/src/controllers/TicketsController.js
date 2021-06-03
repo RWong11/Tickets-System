@@ -28,7 +28,7 @@ function capturar(req, res){
             return res.status(400).send({error: true, mensaje: "El nombre ha sobrepasado la longitud máxima (50)"});
             
         if(Descripcion.length > 100)
-            return res.status(400).send({error: true, mensaje: "El nombre ha sobrepasado la longitud máxima (50)"});
+            return res.status(400).send({error: true, mensaje: "La descripción ha sobrepasado la longitud máxima (100)"});
             
         if(!Prioridad)
             return res.status(400).send({error: true, mensaje: "La prioridad es necesaria"});
