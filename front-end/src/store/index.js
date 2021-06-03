@@ -19,6 +19,11 @@ export default new Vuex.Store({
       .then( response => {
         commit('SET_TICKETS', response.data)
       });
+    },
+    crear_ticket({commit}, {params, onComplete, onError}) {
+      axios.post('http://localhost:3000/tickets', params)
+      .then(onComplete)
+      .catch(onError)
     }
   },
   modules: {
