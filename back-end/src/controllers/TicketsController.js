@@ -14,6 +14,21 @@ function obtener(req, res) {
     }
 }
 
+function obtenerUno(req, res) {
+    if(connection) {
+        const {id} = req.params
+        let sql = "SELECT * FROM VI_Tickets WHERE TicketBaja = 0 AND IDTicket = ?";
+        connection.query(sql, [id], (err, tickets) => {
+            if(err) 
+                res.json(err);
+            else {
+                console.log(tickets);
+                res.json(tickets);
+            }
+        });
+    }
+}
+
 function capturar(req, res){
     if(connection){
         console.log("BODY: ", req.body);
@@ -87,6 +102,7 @@ function eliminar(req, res) {
 
 module.exports = {
     obtener,
+    obtenerUno,
     capturar,
     editar,
     eliminar
