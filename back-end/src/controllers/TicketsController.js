@@ -68,14 +68,14 @@ function capturar(req, res){
     function editar(req, res){
         if(connection){
             const {id} = req.params;
-            const {Descripcion, Prioridad, Personal, Categoria} = req.body;
+            const {Descripcion, Prioridad, Personal, Categoria, Estatus} = req.body;
             
         if(Descripcion.length > 100)
             return res.status(400).send({error: true, mensaje: "El nombre ha sobrepasado la longitud máxima (50)"});
 
         let sql = "UPDATE Tickets set ? WHERE ID = ?;";
 
-        connection.query(sql, [{Descripcion, Prioridad, Personal, Categoria}, id], (err, data) => {
+        connection.query(sql, [{Descripcion, Prioridad, Personal, Categoria, Estatus}, id], (err, data) => {
             if(err)
                 console.log(err);
             else 
