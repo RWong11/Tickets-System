@@ -1,23 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import VisualizarPersonal from '../views/VisualizarPersonal.vue'
+import AgregarPersonal from '../views/AgregarPersonal.vue'
+import EditarPrincipal from '../views/EditarPrincipal.vue'
+import EditarPersona from '../views/EditarPersona.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/personal',
+    name: 'Personal',
+    component: VisualizarPersonal
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/agregar-personal',
+    name: 'Agregar',
+    component:AgregarPersonal
+  },
+  {
+    path: '/editar',
+    name: 'Editar-Principal',
+    component: EditarPrincipal
+  },
+  {
+    path: '/editar/:id',
+    name: 'Editar-Persona',
+    component: EditarPersona
+  },
+  
 ]
 
 const router = new VueRouter({

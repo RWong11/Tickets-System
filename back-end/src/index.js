@@ -17,7 +17,7 @@ require('./config/connection');
 
 // RUTAS
 app.use(require('./routes/CategoriasRoutes'));
-//app.use(require('./routes/PersonalRoutes'));
+app.use(require('./routes/PersonalRoutes'));
 //app.use(require('./routes/TicketsRoutes'));
 
 // LEVANTAR EL SERVIDOR
