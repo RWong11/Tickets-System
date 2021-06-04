@@ -1,13 +1,15 @@
 <template>
   <div class="form">
-        <h1>Editar Ticket</h1>
+        <h1>{{titulo}}</h1>
         <b-form @submit.prevent="editarTicket()">
             <Input 
                 class="mt-2"
                 id="nombre"
                 titulo="Nombre: "
                 placeholder="Ingrese un nombre"
+
                 :valueText="ticket.Nombre"
+
                 :disabled="disabledNombre"
                 :maxlength="50"
                 :error="erroresValidacion && !validarNombre"
@@ -59,8 +61,10 @@
                 :error="erroresValidacion && !validarCategoria"
                 mensajeError="Debes seleccionar una categoría"
             />
+            <!-- SOLO SE PODRÁ CAMBIAR EL ESTATUS CUANDO SE SELECCIONE LA OPCIÓN DE CAMBIAR ESTATUS -->
             <Select 
                 class="mt-2"
+                v-model="ticket.IDEstatus"
                 :options="estatusAll" 
                 id="estatus" 
                 titulo="Estatus: " 
@@ -70,7 +74,7 @@
                 :error="erroresValidacion && !validarCategoria"
                 mensajeError="Debes seleccionar un estatus"
             />
-            <b-button class="mt-2" type="submit" variant="primary">Agregar</b-button>
+            <b-button class="mt-2" type="submit" variant="primary">Guardar</b-button>
         </b-form>
     </div>
 </template>
@@ -88,6 +92,10 @@ export default {
         Select
     },
     props: {
+        titulo: {
+            type: String,
+            default: "Editar Ticket"
+        },
         disabledNombre: {
             type: Boolean,
             default: false
@@ -227,7 +235,9 @@ export default {
                         Descripcion: this.ticket.Descripcion,
                         Prioridad: this.ticket.IDPrioridad,
                         Personal: this.ticket.IDPersonal,
-                        Categoria: this.ticket.IDCategoria
+                        Categoria: this.ticket.IDCategoria,
+                        //Sólo habrá cambio de Estatus cuando se seleccione el botón para cambiar Estatus
+                        Estatus: this.ticket.IDEstatus
                     },
                     onComplete: (response) => {
                         console.log(response.data);

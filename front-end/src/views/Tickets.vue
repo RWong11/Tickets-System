@@ -8,13 +8,25 @@
     </div>
     <Table :items='tickets' :fields='fields'>
         <template slot="actions" slot-scope="{item}">
-            <b-button @click="onEstatus(item)" pill variant="secondary" >
+            <b-button v-b-tooltip.hover 
+            title="Editar Estatus" 
+            @click="onEstatus(item)" 
+             variant="secondary"
+            >
                 <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
             </b-button>
-            <b-button @click="onEditar(item)" pill variant="secondary"  >
+            <b-button v-b-tooltip.hover 
+            title="Editar Ticket"
+            @click="onEditar(item)" 
+             variant="secondary"  
+            >
                 <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
             </b-button>
-            <b-button @click="onEliminar(item)" pill variant="danger" >
+            <b-button v-b-tooltip.hover 
+            title="Eliminar Ticket"
+            @click="onEliminar(item)" 
+             variant="danger" 
+            >
                 <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
             </b-button>
         </template>
@@ -79,6 +91,20 @@ export default {
         ...mapActions(['set_tickets', 'eliminar_ticket']),
         onEstatus(item) {
             console.log("Estatus", item.item.IDTicket)
+
+            this.$router.push({
+                name: "EditarTicket",
+                params: {
+                    id: item.item.IDTicket,
+                    titulo: "Editar Estatus",
+                    disabledNombre: true,
+                    disabledDescripcion: true,
+                    disabledPrioridad: true,
+                    disabledPersonal: true,
+                    disabledCategoria: true
+                }
+            })
+
         },
         onEditar(item) {
             console.log("Editar", item.item.IDTicket)
