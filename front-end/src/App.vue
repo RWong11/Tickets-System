@@ -1,20 +1,29 @@
 <template>
-  <div id="app">
-    <notifications position="bottom right" />
-    <div id="nav">
+  <div>
+    <div id="app">
+      <notifications position="bottom right" />
+      <nav-bar />
+      <side-bar />
+
+      <br>
+      <router-view />
+    </div>
+    
+    <!-- <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/categorias">Categorias</router-link>
-    </div>
-    <router-view/>
+    </div> -->    
   </div>
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
+import SideBar from "./layout/SideBar";
+import NavBar from "./layout/NavBar";
 
 export default {
   components: {
-    NavBar
+    NavBar,
+    SideBar
   },
 };
 </script>
@@ -25,19 +34,5 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-  text-align: center;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

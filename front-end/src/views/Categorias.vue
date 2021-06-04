@@ -1,7 +1,19 @@
 <template>
   <div>
     <b-container>
+      <b-row>
         <b-col align-self="start"><h1>Categorias</h1></b-col>
+      </b-row>
+      <b-row align-h="end">
+        <b-col cols="auto">
+          <div class="d-grid gap-2">
+            <b-button block variant="primary" v-b-modal.modal-capturar>
+              Agregar Categoria
+              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+            </b-button>
+          </div
+        ></b-col>
+      </b-row>
     </b-container>
 
     <Table
@@ -16,6 +28,32 @@
         </b-button>
       </template>
     </Table>
+
+    <b-modal
+      id="modal-capturar"
+      ref="modal"
+      title="Capturar Categoria"
+      okTitle="Aceptar"
+      @show="resetModal"
+      @hidden="resetModal"
+      @ok="handleOk"
+    >
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <b-form-group
+          label="Nombre"
+          label-for="nombre-input"
+          invalid-feedback="Ingrese un valor para continuar."
+          :state="formState"
+        >
+          <b-form-input
+            id="nombre-input"
+            v-model="categoria.nombre"
+            :state="formState"
+            required
+          ></b-form-input>
+        </b-form-group>
+      </form>
+    </b-modal>
   </div>
 </template>
 
@@ -31,20 +69,32 @@ export default {
   data() {
     return {
       campos: [
-        { key: "ID", label: "ID", sortable: false, thClass: 'col-md-1 table-dark' },
-        { key: "Nombre", sortable: true, thClass: 'col-md-8 table-dark' },
-        { key: "actions", label: "Acciones", sortable: false, thClass: 'col-md-2 table-dark' },
+        {
+          key: "ID",
+          label: "ID",
+          sortable: false,
+          thClass: "col-md-1 table-dark",
+        },
+        { key: "Nombre", sortable: true, thClass: "col-md-9 table-dark" },
+        {
+          key: "actions",
+          label: "Acciones",
+          sortable: false,
+          thClass: "col-md-2 table-dark",
+        },
       ],
+      categoria: {
+        nombre: "",
+      },
+      formState: null,
     };
   },
   computed: {
     ...mapState(["categorias", "loading"]),
   },
   methods: {
-    ...mapActions(["setCategorias", "eliminarCategoria"]),
+    ...mapActions(["setCategorias", "eliminarCategoria", "capturarCategoria"]),
     onEliminar(item) {
-      console.log("Eliminar", item.item.ID);
-
       this.$bvModal
         .msgBoxConfirm("Esta opción no se puede deshacer.", {
           title: "Eliminar Categoria",
@@ -63,17 +113,48 @@ export default {
               onComplete: (response) => {
                 console.log(response.data);
                 this.$notify({
-                  type: "success",
+                  type: "primary",
                   title: response.data.mensaje,
                 });
                 this.setCategorias();
               },
             });
           }
-        })
-        .catch((err) => {
-          // An error occurred
         });
+    },
+    checkFormValidity() {
+      const valid = this.$refs.form.checkValidity();
+      this.formState = valid;
+      return valid;
+    },
+    resetModal() {
+      this.categoria.nombre = "";
+      this.formState = null;
+    },
+    handleOk(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      if (!this.checkFormValidity()) {
+        return;
+      }
+
+      this.capturarCategoria({
+        params: this.categoria,
+        onComplete: (response) => {
+          console.log(response.data);
+          this.$notify({
+            type: "success",
+            title: response.data.mensaje,
+          });
+          this.setCategorias();
+        },
+      });
+
+      this.$nextTick(() => {
+        this.$bvModal.hide("modal-capturar");
+      });
     },
   },
   mounted() {

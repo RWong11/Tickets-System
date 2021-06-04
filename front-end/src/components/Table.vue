@@ -2,11 +2,10 @@
   <div>
     <b-container class="fluid">
       <b-row align-h="between">
-        <b-col lg="3"  class="my-1">
+        <b-col lg="3" class="my-1">
           <b-form-group
             label="Registros por página"
             label-for="per-page-select"
-            label-align-sm="right"
             label-size="sm"
             class="mb-0"
           >
@@ -14,7 +13,6 @@
               id="per-page-select"
               v-model="perPage"
               :options="pageOptions"
-              class="form-select"
             ></b-form-select>
           </b-form-group>
         </b-col>
@@ -22,8 +20,6 @@
           <b-form-group
             label="Filtro"
             label-for="filter-input"
-            label-cols-sm="3"
-            label-align-sm="right"
             label-size="sm"
             class="mb-0"
           >
@@ -93,8 +89,6 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   name: "Table",
@@ -107,8 +101,8 @@ export default {
   data() {
     return {
       currentPage: 1,
-      perPage: 5,
-      pageOptions: [5, 10, 15, { value: 100, text: "Todos" }],
+      perPage: 10,
+      pageOptions: [5, 10, 20, { value: 100, text: "Muchos" }],
       filter: null,
     };
   },
