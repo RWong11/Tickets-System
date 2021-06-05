@@ -90,7 +90,6 @@ export default {
                     id: this.$route.params.id,
                     params:this.persona,
                     onComplete: (response) => {
-                        console.log(respose.data);
                         this.$notify({
                             type: 'success',
                             title: response.data.mensaje,
