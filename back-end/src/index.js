@@ -17,10 +17,10 @@ require('./config/connection');
 
 // RUTAS
 app.use(require('./routes/CategoriasRoutes'));
-app.use(require('./routes/PersonalRoutes'));
 app.use(require('./routes/TicketsRoutes'));
 app.use(require('./routes/EstatusRoutes'));
 app.use(require('./routes/PrioridadesRoutes'));
+app.use(require('./routes/PersonalRoutes'));
 
 // LEVANTAR EL SERVIDOR
 app.listen(app.get('port'), (error) => {
