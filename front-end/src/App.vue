@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-
     </div>
     <router-view class="container mt-3"/>
-    <notification position='top right'/>
+    <notifications position='top right'/>
   </div>
 </template>
 
