@@ -77,7 +77,8 @@ function editarPersona(req, res) {
         const { id } = req.params;
         const persona = req.body;
 
-        let sql = "UPDATE Personal set ? WHERE id = ?";
+        let sql = "UPDATE Personal SET Nombre= " + persona.Nombre + ", Apellidos= " + persona.Apellidos + ", Telefono= " + 
+            persona.Telefono + ", Direccion= " + persona.Direccion +  "WHERE id = ?";
 
         connection.query(sql, [persona, id], (err, data) => {
             if(err) {
