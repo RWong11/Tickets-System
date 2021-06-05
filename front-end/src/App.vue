@@ -4,6 +4,7 @@
 
     </div>
     <router-view class="container mt-3"/>
+    <notification position='top right'/>
   </div>
 </template>
 
