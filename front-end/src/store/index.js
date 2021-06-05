@@ -87,10 +87,12 @@ export default new Vuex.Store({
       .catch(onError)
     },
     set_tickets({commit}) {
+      commit("SET_LOADING", true);
       axios.get('http://localhost:3000/tickets')
       .then( response => {
         commit('SET_TICKETS', response.data)
-      });
+      })
+      .finally(() => commit('SET_LOADING', false))
     },
     set_ticket({commit}, {id, onComplete, onError}) {
       axios.get(`http://localhost:3000/tickets/${id}`)
@@ -133,6 +135,8 @@ export default new Vuex.Store({
       });
     },
   },
+  
+  
   modules: {
   }
 })
