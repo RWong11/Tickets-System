@@ -58,7 +58,7 @@ CREATE TABLE Tickets (
 
 CREATE VIEW Vi_Tickets
 AS
-	SELECT T.ID as IDTicket, T.Nombre, T.Descripcion, T.ID as IDPrioridad, T.Descripcion as Prioridad,
+	SELECT T.ID as IDTicket, T.Nombre, T.Descripcion, PT.ID as IDPrioridad, PT.Descripcion as Prioridad,
 			PE.ID as IDPersonal, PE.Nombre as NombrePersonal, PE.Apellidos as ApellidosPersonal, PE.Telefono as TelefonoPersonal, PE.Direccion as DireccionPersonal,
             CT.ID as IDCategoria, CT.Nombre as Categoria, 
             ET.ID as IDEstatus, ET.Descripcion as Estatus,

@@ -9,7 +9,7 @@
           <div class="d-grid gap-2">
             <b-button block variant="primary" v-b-modal.modal-capturar>
               Agregar Categoria
-              <b-icon icon="plus-circle" aria-hidden="true"></b-icon>
+              <b-icon icon="plus" aria-hidden="true"></b-icon>
             </b-button>
           </div
         ></b-col>

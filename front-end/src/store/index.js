@@ -86,6 +86,11 @@ export default new Vuex.Store({
       .then(onComplete)
       .catch(onError)
     },
+    editarPersona({commit}, {id, params, onComplete, onError} ) {
+      axios.put(`http://localhost:3000/${id}`, params)
+      .then(onComplete)
+      .catch(onError)
+    },
     set_tickets({commit}) {
       commit("SET_LOADING", true);
       axios.get('http://localhost:3000/tickets')

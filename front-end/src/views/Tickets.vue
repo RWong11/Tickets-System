@@ -1,28 +1,28 @@
 <template>
   <div class="Tickets">
-    <b-container>
-      <b-row>
-        <b-col align-self="start"><h1>Tickets</h1></b-col>
-      </b-row>
-      <b-row align-h="end">
-        <b-col cols="auto">
-          <div class="d-grid gap-2">
-            <b-button variant="primary" to="../tickets/agregarTicket">
-              Agregar Ticket
-              <b-icon icon="plus" aria-hidden="true"></b-icon>
-            </b-button>
-          </div>
-        </b-col>
-      </b-row>
-    </b-container>
+    <b-row>
+      <b-col align-self="start"><h1>Tickets</h1></b-col>
+    </b-row>
+    <b-row align-h="end">
+      <b-col cols="auto">
+        <div class="d-grid gap-2">
+          <b-button variant="primary" to="../tickets/agregarTicket">
+            Agregar Ticket
+            <b-icon icon="plus" aria-hidden="true"></b-icon>
+          </b-button>
+        </div>
+      </b-col>
+    </b-row>
 
-    <Table :items="tickets" 
-          :fields="fields" 
-          :busy="loading" 
-          :totalRows="tickets.length"
-          >
+    <Table
+      :items="tickets"
+      :fields="fields"
+      :busy="loading"
+      :totalRows="tickets.length"
+    >
       <template slot="actions" slot-scope="{ item }">
         <b-button
+          pill
           v-b-tooltip.hover
           title="Editar Estatus"
           @click="onEstatus(item)"
@@ -30,16 +30,18 @@
           v-b-modal.modal-estatus
         >
           <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
-        </b-button>
+        </b-button> &nbsp;
         <b-button
+          pill
           v-b-tooltip.hover
           title="Editar Ticket"
           @click="onEditar(item)"
-          variant="secondary"
+          variant="warning"
         >
-          <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
-        </b-button>
+          <b-icon icon="pencil" aria-hidden="true"></b-icon>
+        </b-button> &nbsp;
         <b-button
+          pill
           v-b-tooltip.hover
           title="Eliminar Ticket"
           @click="onEliminar(item)"
@@ -93,11 +95,13 @@ export default {
         {
           key: "Nombre",
           sortable: false,
+          thClass: "table-dark",
         },
         {
           key: "Descripcion",
           label: "Descripción",
           sortable: false,
+          thClass: "table-dark",
           formatter: (value) => {
             return value || "-";
           },
@@ -105,24 +109,32 @@ export default {
         {
           key: "Prioridad",
           sortable: false,
+          thClass: "table-dark",
         },
         {
           key: "NombrePersonal",
           label: "Personal",
           sortable: false,
+          thClass: "table-dark",
+          formatter: (value, key, item) => {
+            return item.NombrePersonal + ' ' + item.ApellidosPersonal;
+          }
         },
         {
           key: "Categoria",
           label: "Categoría",
           sortable: false,
+          thClass: "table-dark",
         },
         {
           key: "Estatus",
           sortable: false,
+          thClass: "table-dark",
         },
         {
           key: "Actions",
           label: "Acciones",
+          thClass: "table-dark",
         },
       ],
     };
