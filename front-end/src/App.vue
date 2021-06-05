@@ -1,33 +1,35 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/tickets">Tickets</router-link> 
-    </div>
-    <router-view/>
-    <notifications position="bottom right"/>
+  <div>
+    <div id="app">
+      <notifications position="bottom right" />
+      <nav-bar />
+      <side-bar />
+
+      <br>
+      <div style="margin-left: 330px;margin-right:10px;">
+        <router-view />
+      </div>
+    </div>  
   </div>
 </template>
+
+<script>
+import SideBar from "./layout/SideBar";
+import NavBar from "./layout/NavBar";
+
+export default {
+  components: {
+    NavBar,
+    SideBar
+  },
+};
+</script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
 }
 </style>

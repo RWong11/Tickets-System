@@ -1,31 +1,30 @@
 <template>
   <div>
-      <label :for="id">{{titulo}}</label>
-      <input 
-        :type="tipo" 
+    <label :for="id">{{ titulo }}</label>
+    <input 
         :id="id"
         class="form-control"
-        :value="valueText"
+        :value="value"
+        :type="tipo"
         :maxlength="maxlength"
         :disabled="disabled"
         :placeholder="placeholder"
-        @input="$emit('input', $event.target.value)"/>
-        <span v-if="error" class="text-danger">{{ mensajeError }}</span>
+        @input="$emit('input', $event.target.value)"
+    />
+    <span v-if="error" class="text-danger">{{ mensajeError }}</span>
   </div>
 </template>
 
 <script>
-  export default {
+export default {
+    name: 'Input',
     props: {
         id: {
-            type: [Number, String],
+            type: [String, Number],
             required: true
         },
         titulo: String,
-        valueText: {
-            type: [Number, String],
-            default: ''
-        },
+        value: [String, Number],
         tipo: {
             type: String,
             default: 'text'
@@ -40,17 +39,21 @@
         },
         placeholder: {
             type: String,
-            default: 'Ingresa la información'
+            default: "Ingresa la información"
         },
         mensajeError: {
             type: String,
-            default: 'Campo obligatorio'
+            default: "Campo obligatorio"
         },
         error: {
             type: Boolean,
             default: false
         }
     }
-  }
+
+}
 </script>
 
+<style>
+
+</style>
