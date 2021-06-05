@@ -16,7 +16,11 @@
       </b-row>
     </b-container>
 
-    <Table :items="tickets" :fields="fields">
+    <Table :items="tickets" 
+          :fields="fields" 
+          :busy="loading" 
+          :totalRows="tickets.length"
+          >
       <template slot="actions" slot-scope="{ item }">
         <b-button
           v-b-tooltip.hover
@@ -124,10 +128,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tickets", "estatus"]),
+    ...mapState(["tickets", "estatus", "loading"]),
   },
   methods: {
-    ...mapActions(["set_tickets", "eliminar_ticket", "editar_ticket_estatus", "set_estatus"]),
+    ...mapActions([
+      "set_tickets",
+      "eliminar_ticket",
+      "editar_ticket_estatus",
+      "set_estatus",
+    ]),
 
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();

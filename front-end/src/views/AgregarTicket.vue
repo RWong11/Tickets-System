@@ -23,7 +23,7 @@
             <Select 
                 class="mt-2"
                 v-model="ticket.Prioridad"
-                :options="prioridades" 
+                :options="selectDePrioridades()" 
                 id="prioridad" 
                 titulo="Prioridad:" 
                 placeholder="Seleccione prioridad"
@@ -58,7 +58,7 @@
 <script>
 import Input from '../components/Input'
 import Select from '../components/Select'
-import {mapActions} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
     name: 'AgregarTicket',
@@ -75,65 +75,12 @@ export default {
                 Personal: "",
                 Categoria: "",
             },
-            prioridades: [
-                {
-                    value: 1,
-                    text: "Baja"
-                },
-                {
-                    value: 2,
-                    text: "Media"
-                },
-                {
-                    value: 3,
-                    text: "Alta"
-                },
-            ],
-            personalAll: [
-                {
-                    ID: 1,
-                    Nombre: "As",
-                    Apellidos: "Per"
-                },
-                {
-                    ID: 2,
-                    Nombre: "Es",
-                    Apellidos: "Ser"
-                },
-                {
-                    ID: 3,
-                    Nombre: "Os",
-                    Apellidos: "Ner"
-                },
-                {
-                    ID: 4,
-                    Nombre: "Weart",
-                    Apellidos: "Gar"
-                },
-            ],
-            categoriasAll: [
-                {
-                    ID: 1,
-                    Descripcion: "Peticiones"
-                },
-                {
-                    ID: 2,
-                    Descripcion: "Emergencias"
-                },
-                {
-                    ID: 3,
-                    Descripcion: "Avisos"
-                },
-                {
-                    ID: 4,
-                    Descripcion: "Otros"
-                },
-            ],
             erroresValidacion: false
         }
             
     },
     computed: {
+        ...mapState(['prioridades', 'personal', 'categorias']),
         validarNombre() {
             return (
                 this.ticket.Nombre !== undefined &&
@@ -160,7 +107,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(['crear_ticket']),
+        ...mapActions(['crear_ticket', 'set_prioridades', 'setCategorias', 'setPersonal']),
         agregarTicket() {
             if (this.validarNombre && this.validarPrioridad && this.validarPersonal && this.validarCategoria) {
                 this.erroresValidacion = false;
@@ -190,23 +137,33 @@ export default {
                 return;
             }
 
-
-
+        },
+        selectDePrioridades() {
+            let prioridadesSelect = [];
+            this.prioridades.forEach(element => {
+                prioridadesSelect.push({value: element.ID, text: element.Descripcion})
+            });
+            return prioridadesSelect;
         },
         selectDePersonal() {
             let personalSelect = [];
-            this.personalAll.forEach(element => {
+            this.personal.forEach(element => {
                 personalSelect.push({value: element.ID, text: element.Nombre + " " + element.Apellidos})
             });
             return personalSelect;
         },
         selectDeCategorias() {
             let categoriasSelect = [];
-            this.categoriasAll.forEach(element => {
-                categoriasSelect.push({value: element.ID, text: element.Descripcion})
+            this.categorias.forEach(element => {
+                categoriasSelect.push({value: element.ID, text: element.Nombre})
             });
             return categoriasSelect;
         }
+    },
+    mounted() {
+        this.set_prioridades();
+        this.setCategorias();
+        this.setPersonal();
     }
 
 

@@ -129,6 +129,8 @@ export default {
       "editar_ticket",
       "set_prioridades",
       "set_estatus",
+      "setPersonal",
+      "setCategorias"
     ]),
     editarTicket() {
       if (
@@ -203,7 +205,7 @@ export default {
     selectDeCategorias() {
       let categoriasSelect = [];
       this.categorias.forEach((element) => {
-        categoriasSelect.push({ value: element.ID, text: element.Descripcion });
+        categoriasSelect.push({ value: element.ID, text: element.Nombre });
       });
       return categoriasSelect;
     },
@@ -215,11 +217,13 @@ export default {
         Vue.set(this, "ticket", response);
       },
     }),
-      this.set_prioridades();
-      this.set_estatus();
+
+    this.set_prioridades();
+    this.set_estatus();
+    this.setPersonal();
+    this.setCategorias();
+    console.log(this.categorias);
   },
-  //llamar a la action de set_personal
-  //llamar a la action de set_categoría
 };
 </script>
 
