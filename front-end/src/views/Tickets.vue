@@ -57,7 +57,7 @@
         <Select
           class="mt-2"
           v-model="nuevoEstatus.IDEstatus"
-          :options="estatusAll"
+          :options="selectDeEstatus()"
           id="estatus"
           titulo="Estatus:"
           placeholder="Seleccione Estatus"
@@ -81,20 +81,6 @@ export default {
   },
   data() {
     return {
-      estatusAll: [
-        {
-          value: "ABT",
-          text: "Abierto",
-        },
-        {
-          value: "ESP",
-          text: "En espera",
-        },
-        {
-          value: "FIN",
-          text: "Finalizado",
-        },
-      ],
       nuevoEstatus: {
         IDTicket: Number,
         IDEstatus: "",
@@ -138,10 +124,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(["tickets"]),
+    ...mapState(["tickets", "estatus"]),
   },
   methods: {
-    ...mapActions(["set_tickets", "eliminar_ticket", "editar_ticket_estatus"]),
+    ...mapActions(["set_tickets", "eliminar_ticket", "editar_ticket_estatus", "set_estatus"]),
 
     handleOk(bvModalEvt) {
       bvModalEvt.preventDefault();
@@ -177,13 +163,18 @@ export default {
       this.nuevoEstatus.IDEstatus = item.item.IDEstatus;
       this.nuevoEstatus.IDTicket = item.item.IDTicket;
     },
+    selectDeEstatus() {
+      let estatusSelect = [];
+      this.estatus.forEach((element) => {
+        estatusSelect.push({ value: element.ID, text: element.Descripcion });
+      });
+      return estatusSelect;
+    },
     onEditar(item) {
       this.$router.push({
         name: "EditarTicket",
         params: {
           id: item.item.IDTicket,
-          disabledNombre: true,
-          disabledEstatus: true,
         },
       });
     },
@@ -223,6 +214,7 @@ export default {
   },
   mounted() {
     this.set_tickets();
+    this.set_estatus();
   },
 };
 </script>

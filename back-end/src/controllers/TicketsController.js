@@ -37,20 +37,16 @@ function capturar(req, res) {
         .send({ error: true, mensaje: "El nombre es obligatorio" });
 
     if (Nombre.length > 50)
-      return res
-        .status(400)
-        .send({
-          error: true,
-          mensaje: "El nombre ha sobrepasado la longitud máxima (50)",
-        });
+      return res.status(400).send({
+        error: true,
+        mensaje: "El nombre ha sobrepasado la longitud máxima (50)",
+      });
 
     if (Descripcion.length > 100)
-      return res
-        .status(400)
-        .send({
-          error: true,
-          mensaje: "La descripción ha sobrepasado la longitud máxima (100)",
-        });
+      return res.status(400).send({
+        error: true,
+        mensaje: "La descripción ha sobrepasado la longitud máxima (100)",
+      });
 
     if (!Prioridad)
       return res
@@ -91,12 +87,10 @@ function editar(req, res) {
     const { Descripcion, Prioridad, Personal, Categoria, Estatus } = req.body;
 
     if (Descripcion.length > 100)
-      return res
-        .status(400)
-        .send({
-          error: true,
-          mensaje: "El nombre ha sobrepasado la longitud máxima (50)",
-        });
+      return res.status(400).send({
+        error: true,
+        mensaje: "El nombre ha sobrepasado la longitud máxima (50)",
+      });
 
     let sql = "UPDATE Tickets set ? WHERE ID = ?;";
 
@@ -105,12 +99,16 @@ function editar(req, res) {
       [{ Descripcion, Prioridad, Personal, Categoria, Estatus }, id],
       (err, data) => {
         if (err) console.log(err);
-        else
+        else {
+          noChanges = data.changedRows === 0;
           res.json({
             error: false,
             data,
-            mensaje: "Ticket editado con éxito.",
+            mensaje: noChanges
+              ? "La información no ha cambiado"
+              : "Ticket editado con éxito.",
           });
+        }
       }
     );
   }
@@ -122,24 +120,21 @@ function editarEstatus(req, res) {
 
     let sql = "UPDATE Tickets set ? WHERE ID = ?;";
 
-    connection.query(
-      sql,
-      [{Estatus}, ID],
-      (err, data) => {
-        if (err) console.log(err);
-        else
-          console.log(data);
-          noChanges = data.changedRows === 0;
-          res.json({
-            error: false,
-            data,
-            mensaje: noChanges? "El estatus no ha cambiado" : "Estatus cambiado con éxito",
-          });
+    connection.query(sql, [{ Estatus }, ID], (err, data) => {
+      if (err) console.log(err);
+      else {
+        noChanges = data.changedRows === 0;
+        res.json({
+          error: false,
+          data,
+          mensaje: noChanges
+            ? "El estatus no ha cambiado"
+            : "Estatus cambiado con éxito",
+        });
       }
-    );
+    });
   }
 }
-
 
 function eliminar(req, res) {
   if (connection) {
