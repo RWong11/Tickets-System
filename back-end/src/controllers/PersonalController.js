@@ -38,28 +38,28 @@ function insertarPersona(req, res){
         console.log(req.body);
         const persona = req.body;
 
-        if(!persona.nombre){
+        if(!persona.Nombre){
             return res.status(400).send({error: true, mensaje: "El nombre es obligatorio"});
         }
 
-        if(persona.nombre && persona.nombre.length > 50){
+        if(persona.Nombre && persona.Nombre.length > 50){
             return res.status(400).send({error: true, mensaje: "El campo de nombre debe contener como máximo 50 caracteres"});
         }
 
-        if(!persona.apellidos){
+        if(!persona.Apellidos){
             return res.status(400).send({error: true, mensaje: "El apellido es obligatorio"});
         }
 
-        if(persona.apellidos && persona.apellidos.length > 80){
+        if(persona.Apellidos && persona.Apellidos.length > 80){
             return res.status(400).send({error: true, mensaje: "El campo de apellidos debe contener como máximo 80 caracteres"});
         }
 
-        if(persona.telefono && persona.telefono.length !== 10){
+        if(persona.Telefono && persona.Telefono.length !== 10){
             return res.status(400).send({error: true, mensaje: "La longitud debe ser de 10 caracteres"});
         }
 
         let sql = "INSERT INTO Personal (Nombre, Apellidos, Telefono, Direccion, Baja) VALUES ('" 
-        + persona.nombre + "', '" + persona.apellidos + "', '" + persona.telefono + "', '" + persona.direccion + "', 0)";
+        + persona.Nombre + "', '" + persona.Apellidos + "', '" + persona.Telefono + "', '" + persona.Direccion + "', 0)";
 
         connection.query(sql, [persona], (err, data) => {
             if(err){
@@ -93,8 +93,6 @@ function editarPersona(req, res) {
                 res.json({error: false, data, mensaje});
             }
         } )
-
-
     }
 }
 

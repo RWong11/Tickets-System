@@ -4,7 +4,7 @@
     <input 
         :id="id"
         class="form-control"
-        :value="value"
+        :value="valueText"
         :type="tipo"
         :maxlength="maxlength"
         :disabled="disabled"
@@ -24,7 +24,10 @@ export default {
             required: true
         },
         titulo: String,
-        value: [String, Number],
+        valueText: {
+            type: [String, Number],
+            default: ''
+        },
         tipo: {
             type: String,
             default: 'text'
