@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container class="fluid">
+
       <b-row align-h="between">
         <b-col lg="3" class="my-1">
           <b-form-group
@@ -85,7 +85,6 @@
           ></b-pagination>
         </b-col>
       </b-row>
-    </b-container>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container>
+    
       <b-row>
         <b-col align-self="start"><h1>Categorias</h1></b-col>
       </b-row>
@@ -14,7 +14,7 @@
           </div
         ></b-col>
       </b-row>
-    </b-container>
+    
 
     <Table
       :items="categorias"

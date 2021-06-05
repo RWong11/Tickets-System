@@ -6,13 +6,10 @@
       <side-bar />
 
       <br>
-      <router-view />
-    </div>
-    
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/categorias">Categorias</router-link>
-    </div> -->    
+      <div style="margin-left: 330px;margin-right:10px;">
+        <router-view />
+      </div>
+    </div>  
   </div>
 </template>
 
