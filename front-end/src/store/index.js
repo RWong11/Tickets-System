@@ -42,6 +42,11 @@ export default new Vuex.Store({
       .then(onComplete)
       .catch(onError)
     },
+    editar_ticket_estatus({commit}, {params, onComplete, onError}) {
+      axios.put('http://localhost:3000/tickets/', params)
+      .then(onComplete)
+      .catch(onError)
+    },
     eliminar_ticket({commit}, {id, onComplete, onError}) {
       axios.delete(`http://localhost:3000/tickets/${id}`)
       .then(onComplete)

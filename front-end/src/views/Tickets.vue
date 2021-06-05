@@ -1,162 +1,228 @@
 <template>
   <div class="Tickets">
-    <h1>Tickets</h1>
-    <div class="Button">
-        <b-button pill variant="primary" to="../tickets/agregarTicket">
-            <b-icon icon="plus" aria-hidden="true"></b-icon>
-        </b-button> 
-    </div>
-    <Table :items='tickets' :fields='fields'>
-        <template slot="actions" slot-scope="{item}">
-            <b-button v-b-tooltip.hover 
-            title="Editar Estatus" 
-            @click="onEstatus(item)" 
-             variant="secondary"
-            >
-                <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
+    <b-container>
+      <b-row>
+        <b-col align-self="start"><h1>Tickets</h1></b-col>
+      </b-row>
+      <b-row align-h="end">
+        <b-col cols="auto">
+          <div class="d-grid gap-2">
+            <b-button variant="primary" to="../tickets/agregarTicket">
+              Agregar Ticket
+              <b-icon icon="plus" aria-hidden="true"></b-icon>
             </b-button>
-            <b-button v-b-tooltip.hover 
-            title="Editar Ticket"
-            @click="onEditar(item)" 
-             variant="secondary"  
-            >
-                <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
-            </b-button>
-            <b-button v-b-tooltip.hover 
-            title="Eliminar Ticket"
-            @click="onEliminar(item)" 
-             variant="danger" 
-            >
-                <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
-            </b-button>
-        </template>
+          </div>
+        </b-col>
+      </b-row>
+    </b-container>
+
+    <Table :items="tickets" :fields="fields">
+      <template slot="actions" slot-scope="{ item }">
+        <b-button
+          v-b-tooltip.hover
+          title="Editar Estatus"
+          @click="onEstatus(item)"
+          variant="secondary"
+          v-b-modal.modal-estatus
+        >
+          <b-icon icon="exclamation-circle" aria-hidden="true"></b-icon>
+        </b-button>
+        <b-button
+          v-b-tooltip.hover
+          title="Editar Ticket"
+          @click="onEditar(item)"
+          variant="secondary"
+        >
+          <b-icon icon="pencil-fill" aria-hidden="true"></b-icon>
+        </b-button>
+        <b-button
+          v-b-tooltip.hover
+          title="Eliminar Ticket"
+          @click="onEliminar(item)"
+          variant="danger"
+        >
+          <b-icon icon="trash-fill" aria-hidden="true"></b-icon>
+        </b-button>
+      </template>
     </Table>
+
+    <b-modal
+      id="modal-estatus"
+      ref="modal"
+      title="Cambiar Estatus"
+      okTitle="Aceptar"
+      @ok="handleOk"
+    >
+      <form ref="form" @submit.stop.prevent="handleSubmit">
+        <Select
+          class="mt-2"
+          v-model="nuevoEstatus.IDEstatus"
+          :options="estatusAll"
+          id="estatus"
+          titulo="Estatus:"
+          placeholder="Seleccione Estatus"
+          :selectedItem="nuevoEstatus.IDEstatus"
+        />
+      </form>
+    </b-modal>
   </div>
 </template>
 
 <script>
-import Table from '../components/Table.vue'
-import {mapState, mapActions} from 'vuex'
+import Table from "../components/Table.vue";
+import { mapState, mapActions } from "vuex";
+import Select from "../components/Select";
 
 export default {
-    name: 'Tickets',
-    components: {
-        Table
-    },
+  name: "Tickets",
+  components: {
+    Table,
+    Select,
+  },
   data() {
-      return {
-          fields: [
-              {
-                key: 'Nombre',
-                sortable: false
-            },
-            {
-                key: 'Descripcion',
-                label: 'Descripción',
-                sortable: false,
-                formatter: value => {
-                    return value || '-'
-                }
-            },
-            {
-                key: 'Prioridad',
-                sortable: false
-            },
-            {
-                key: 'NombrePersonal',
-                label: 'Personal',
-                sortable: false
-            },
-            {
-                key: 'Categoria',
-                label: 'Categoría',
-                sortable: false
-            },
-            {
-                key: 'Estatus',
-                sortable: false
-            },
-            {
-                key: 'Actions',
-                label: 'Acciones'
-
-            }
-        ]
-      }
-    },
-    computed: {
-        ...mapState(['tickets'])
-    },
-    methods: {
-        ...mapActions(['set_tickets', 'eliminar_ticket']),
-        onEstatus(item) {
-            console.log("Estatus", item.item.IDTicket)
-
-            this.$router.push({
-                name: "EditarTicket",
-                params: {
-                    id: item.item.IDTicket,
-                    titulo: "Editar Estatus",
-                    disabledNombre: true,
-                    disabledDescripcion: true,
-                    disabledPrioridad: true,
-                    disabledPersonal: true,
-                    disabledCategoria: true
-                }
-            })
-
+    return {
+      estatusAll: [
+        {
+          value: "ABT",
+          text: "Abierto",
         },
-        onEditar(item) {
-            console.log("Editar", item.item.IDTicket)
-            this.$router.push({
-                name: "EditarTicket",
-                params: {
-                    id: item.item.IDTicket,
-                    disabledNombre: true,
-                    disabledEstatus: true
-                }
-            })
+        {
+          value: "ESP",
+          text: "En espera",
         },
-        onEliminar(item) {
+        {
+          value: "FIN",
+          text: "Finalizado",
+        },
+      ],
+      nuevoEstatus: {
+        IDTicket: Number,
+        IDEstatus: "",
+      },
+      fields: [
+        {
+          key: "Nombre",
+          sortable: false,
+        },
+        {
+          key: "Descripcion",
+          label: "Descripción",
+          sortable: false,
+          formatter: (value) => {
+            return value || "-";
+          },
+        },
+        {
+          key: "Prioridad",
+          sortable: false,
+        },
+        {
+          key: "NombrePersonal",
+          label: "Personal",
+          sortable: false,
+        },
+        {
+          key: "Categoria",
+          label: "Categoría",
+          sortable: false,
+        },
+        {
+          key: "Estatus",
+          sortable: false,
+        },
+        {
+          key: "Actions",
+          label: "Acciones",
+        },
+      ],
+    };
+  },
+  computed: {
+    ...mapState(["tickets"]),
+  },
+  methods: {
+    ...mapActions(["set_tickets", "eliminar_ticket", "editar_ticket_estatus"]),
 
-            this.$bvModal
-            .msgBoxConfirm("Esta opción no se puede deshacer.", {
-            title: "Eliminar Ticket",
-            size: "sm",
-            buttonSize: "sm",
-            okVariant: "danger",
-            okTitle: "Aceptar",
-            cancelTitle: "Cancelar",
-            footerClass: "p-2",
-            centered: true,
-            })
-            .then((value) => {
-            if (value) {
-                this.eliminar_ticket({
+    handleOk(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.handleSubmit();
+    },
+    handleSubmit() {
+      this.editar_ticket_estatus({
+        params: {
+          ID: this.nuevoEstatus.IDTicket,
+          Estatus: this.nuevoEstatus.IDEstatus,
+        },
+        onComplete: (response) => {
+          this.$notify({
+            type: "success",
+            title: response.data.mensaje,
+          });
+          this.set_tickets();
+        },
+        onError: (error) => {
+          console.log(error.response.data.mensaje);
+          this.$notify({
+            type: "error",
+            title: error.response.data.mensaje,
+          });
+        },
+      });
 
-                    id: item.item.IDTicket,
-                    onComplete: response => {
-                        this.$notify({
-                            type: "success",
-                            title: response.data.mensaje
-                        });
-                        setTimeout(() => this.set_tickets(), 1000);
-                    },
-                    onError: error => {
-                        console.log(error)
-                    }
-                })
-            }
-            })
-            .catch((err) => {
-            // An error occurred
+      this.$nextTick(() => {
+        this.$bvModal.hide("modal-estatus");
+      });
+    },
+    onEstatus(item) {
+      this.nuevoEstatus.IDEstatus = item.item.IDEstatus;
+      this.nuevoEstatus.IDTicket = item.item.IDTicket;
+    },
+    onEditar(item) {
+      this.$router.push({
+        name: "EditarTicket",
+        params: {
+          id: item.item.IDTicket,
+          disabledNombre: true,
+          disabledEstatus: true,
+        },
+      });
+    },
+    onEliminar(item) {
+      this.$bvModal
+        .msgBoxConfirm("Esta opción no se puede deshacer.", {
+          title: "Eliminar Ticket",
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "Aceptar",
+          cancelTitle: "Cancelar",
+          footerClass: "p-2",
+          centered: true,
+        })
+        .then((value) => {
+          if (value) {
+            this.eliminar_ticket({
+              id: item.item.IDTicket,
+              onComplete: (response) => {
+                this.$notify({
+                  type: "success",
+                  title: response.data.mensaje,
+                });
+                setTimeout(() => this.set_tickets(), 1000);
+              },
+              onError: (error) => {
+                console.log(error);
+              },
             });
-
-        }
+          }
+        })
+        .catch((err) => {
+          // An error occurred
+        });
     },
-    created() {
-        this.set_tickets();
-    }
-}
+  },
+  mounted() {
+    this.set_tickets();
+  },
+};
 </script>
-
