@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Editar Persona</h1>
+        <h4> <strong>ID: </strong> {{persona.ID}}</h4>
         <b-form @submit.prevent="guardarPersona()">
         <Input
             v-model="persona.Nombre"
@@ -12,7 +13,7 @@
             :error="erroresValidacion && !validacionNombre"
             mensajeError="Es necesario ingresar el nombre"
             class="mb-2"
-            
+        
         />
         <Input
             v-model="persona.Apellidos"
@@ -48,11 +49,10 @@
 </template>
 <script>
 import Vue from 'vue'
-import { mapActions , mapState} from 'vuex'
+import { mapActions} from 'vuex'
 import Input from "../components/Input";
 
 export default {
-
     name: 'Editar-Persona',
     components: {
         Input,
@@ -85,7 +85,6 @@ export default {
         guardarPersona(){
             if(this.validacionNombre && this.validacionApellidos){
                 this.erroresValidacion = false;
-
                 this.editarPersona({
                     id: this.$route.params.id,
                     params:this.persona,
@@ -95,7 +94,7 @@ export default {
                             title: response.data.mensaje,
                         });
                         this.$router.push({
-                            name: 'Editar-Principal'
+                            name: 'Personal'
                         })
                     },
                     onError: (error) => {

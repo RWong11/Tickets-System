@@ -1,18 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VisualizarPersonal from '../views/VisualizarPersonal.vue'
+import Home from '../views/Home.vue'
 import AgregarPersonal from '../views/AgregarPersonal.vue'
-import EditarPrincipal from '../views/EditarPrincipal.vue'
+import PersonalPrincipal from '../views/PersonalPrincipal.vue'
 import EditarPersona from '../views/EditarPersona.vue'
-
 
 Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    name: 'Home',
+    component: Home
+  },
+  {
     path: '/personal',
     name: 'Personal',
-    component: VisualizarPersonal
+    component: PersonalPrincipal
   },
   {
     path: '/agregar-personal',
@@ -20,16 +24,31 @@ const routes = [
     component:AgregarPersonal
   },
   {
-    path: '/editar',
-    name: 'Editar-Principal',
-    component: EditarPrincipal
-  },
-  {
     path: '/editar/:id',
     name: 'Editar-Persona',
     component: EditarPersona
   },
-  
+  {
+    path: '/categorias',
+    name: 'Categorias',
+    component: () => import('../views/Categorias.vue')
+  },
+  {
+    path: '/tickets',
+    name: 'Tickets',
+    component: () => import('../views/Tickets.vue')
+  },
+  {
+    path: '/tickets/agregarTicket',
+    name: 'AgregarTicket',
+    component: () => import('../views/AgregarTicket.vue')
+  },
+  {
+    path: '/tickets/editarTicket/:id',
+    name: 'EditarTicket',
+    component: () => import('../views/EditarTicket.vue'),
+    props: true
+  }
 ]
 
 const router = new VueRouter({

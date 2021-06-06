@@ -24,10 +24,12 @@ export default {
             required: true
         },
         titulo: String,
+
         valueText: {
             type: [String, Number],
             default: ''
         },
+
         tipo: {
             type: String,
             default: 'text'
@@ -58,5 +60,3 @@ export default {
 </script>
 
 <style>
-
-</style>

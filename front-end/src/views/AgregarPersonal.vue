@@ -68,6 +68,7 @@ export default {
     validacionNombre() {
       return (
         this.persona.Nombre !== undefined && this.persona.Nombre.trim() !== ""
+
       );
     },
     validacionApellidos() {
