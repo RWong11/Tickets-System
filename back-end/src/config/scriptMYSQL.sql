@@ -1,5 +1,6 @@
 DROP DATABASE IF EXISTS Solicitudes;
 CREATE DATABASE Solicitudes;
+ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY '123';
 USE Solicitudes;
 
 /*

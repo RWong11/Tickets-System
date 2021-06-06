@@ -25,6 +25,7 @@ export default new Vuex.Store({
     SET_PERSONA(state, persona) {
       state.persona = persona;
     },
+
     SET_TICKETS(state, tickets) {
       state.tickets = tickets;
     },

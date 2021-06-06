@@ -1,6 +1,7 @@
 <template>
     <div>
-      <h1>Editar</h1>
+      <h1>Personal</h1>
+      <b-button variant="primary" to="agregar-personal">Agregar</b-button>
       <Table :items="personal" :fields="campos" :busy="loading">
         <template slot="actions" slot-scope="{ item }">
           <b-button variant="primary" @click="onEditar(item)">Editar</b-button>
@@ -15,14 +16,13 @@ import Table from "../components/Table";
 import { mapState, mapActions } from "vuex";
 
 export default {
-    name: 'Editar-Principal',
+    name: 'Personal',
     components: {
         Table,
     },
     data() {
     return {
       campos: [
-        { key: "ID", label: "ID"},
         { key: "Nombre" },
         { key: "Apellidos" },
         {

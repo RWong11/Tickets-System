@@ -3,7 +3,7 @@
     <h1>Agregar Personal</h1>
     <b-form @submit.prevent="guardarPersona()">
       <Input
-        v-model="persona.nombre"
+        v-model="persona.Nombre"
         id="nombre"
         titulo="Nombre"
         placeholder="Ingrese el nombre"
@@ -13,7 +13,7 @@
         class="mb-2"
       />
       <Input
-        v-model="persona.apellidos"
+        v-model="persona.Apellidos"
         id="apellidos"
         titulo="Apellidos"
         placeholder="Ingrese los apellidos"
@@ -23,15 +23,15 @@
         class="mb-2"
       />
       <Input
-        v-model="persona.telefono"
+        v-model="persona.Telefono"
         id="telefono"
         titulo="Telefono"
         :maxlength="10"
-        placeholder="Ingrese el telefono"
+        placeholder="Ingrese el teléfono"
         class="mb-2"
       />
       <Input
-        v-model="persona.direccion"
+        v-model="persona.Direccion"
         id="direccion"
         titulo="Dirección"
         :maxlength="150"
@@ -55,10 +55,10 @@ export default {
   data() {
     return {
       persona: {
-        nombre: "",
-        apellidos: "",
-        telefono: "",
-        direccion: "",
+        Nombre: "",
+        Apellidos: "",
+        Telefono: "",
+        Direccion: "",
       },
       erroresValidacion: false,
     };
@@ -67,12 +67,13 @@ export default {
   computed: {
     validacionNombre() {
       return (
-        this.persona.nombre !== undefined && this.persona.nombre.trim() !== ""
+        this.persona.Nombre !== undefined && this.persona.Nombre.trim() !== ""
+
       );
     },
     validacionApellidos() {
       return (
-        this.persona.apellidos !== undefined && this.persona.apellidos.trim() !== ""
+        this.persona.Apellidos !== undefined && this.persona.Apellidos.trim() !== ""
       );
     },
   },
