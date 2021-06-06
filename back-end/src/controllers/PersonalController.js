@@ -75,12 +75,11 @@ function insertarPersona(req, res){
 function editarPersona(req, res) {
     if(connection){
         const { id } = req.params;
-        const persona = req.body;
+        const {Nombre, Apellidos, Telefono, Direccion} = req.body;
 
-        let sql = "UPDATE Personal SET Nombre= " + persona.Nombre + ", Apellidos= " + persona.Apellidos + ", Telefono= " + 
-            persona.Telefono + ", Direccion= " + persona.Direccion +  "WHERE id = ?";
+        let sql = "UPDATE Personal SET ? WHERE ID = ?";
 
-        connection.query(sql, [persona, id], (err, data) => {
+        connection.query(sql, [{Nombre, Apellidos, Telefono, Direccion}, id], (err, data) => {
             if(err) {
                 res.json(err);
             } else {
