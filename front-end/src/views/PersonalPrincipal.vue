@@ -1,14 +1,30 @@
 <template>
-    <div>
-      <h1>Personal</h1>
-      <b-button variant="primary" to="agregar-personal">Agregar</b-button>
-      <Table :items="personal" :fields="campos" :busy="loading">
-        <template slot="actions" slot-scope="{ item }">
-          <b-button variant="primary" @click="onEditar(item)">Editar</b-button>
-          <b-button variant="danger" @click="onEliminar(item)">Eliminar</b-button>
-        </template>
-      </Table>
-    </div>
+  <div>
+    <b-row>
+      <b-col align-self="start"><h1>Personal</h1></b-col>
+    </b-row>
+    <b-row align-h="end">
+      <b-col cols="auto">
+        <div class="d-grid gap-2">
+          <b-button variant="primary" to="agregar-personal"
+            >Agregar Persona <b-icon icon="plus" aria-hidden="true"></b-icon
+          ></b-button>
+        </div>
+      </b-col>
+    </b-row>
+
+    <Table :items="personal" :fields="campos" :busy="loading">
+      <template slot="actions" slot-scope="{ item }">
+        <b-button pill variant="warning" @click="onEditar(item)"
+          ><b-icon icon="pencil" aria-hidden="true"></b-icon
+        ></b-button>
+        &nbsp;
+        <b-button pill variant="danger" @click="onEliminar(item)"
+          ><b-icon icon="trash-fill" aria-hidden="true"></b-icon
+        ></b-button>
+      </template>
+    </Table>
+  </div>
 </template>
 
 <script>
@@ -16,18 +32,19 @@ import Table from "../components/Table";
 import { mapState, mapActions } from "vuex";
 
 export default {
-    name: 'Personal',
-    components: {
-        Table,
-    },
-    data() {
+  name: "Personal",
+  components: {
+    Table,
+  },
+  data() {
     return {
       campos: [
-        { key: "Nombre" },
-        { key: "Apellidos" },
+        { key: "Nombre", thClass: "table-dark" },
+        { key: "Apellidos", thClass: "table-dark" },
         {
           key: "Telefono",
           label: "Teléfono",
+          thClass: "table-dark",
           formatter: (value) => {
             return value || "Sin datos";
           },
@@ -35,11 +52,12 @@ export default {
         {
           key: "Direccion",
           label: "Dirección",
+          thClass: "table-dark",
           formatter: (value) => {
             return value || "-";
           },
         },
-        { key: "actions", label: "Acciones" },
+        { key: "actions", thClass: "table-dark", label: "Acciones" },
       ],
     };
   },
@@ -51,7 +69,7 @@ export default {
     onEditar(item) {
       console.log("Editar-Persona", item.item.ID);
       this.$router.push({
-        name: 'Editar-Persona',
+        name: "Editar-Persona",
         params: {
           id: item.item.ID,
         },
