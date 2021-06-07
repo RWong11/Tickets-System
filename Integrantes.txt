@@ -1,7 +1,5 @@
-Ricardo Wong Felix
-Brenda Leticia Valdés Picos
-<<<<<<< HEAD
-Juan Emmanuel Lopez Laguna
-=======
-Juan Emmanuel Lopez Laguna
->>>>>>> 9373556ce00549d86d44826718f4352997787668
+Integrantes:
+
+Wong Félix Ricardo
+Valdés Picos Brenda Leticia
+López Laguna Juan Emmanuel
