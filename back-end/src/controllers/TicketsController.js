@@ -2,7 +2,7 @@ const connection = require("../config/connection");
 
 function obtener(req, res) {
   if (connection) {
-    let sql = "SELECT * FROM VI_Tickets WHERE TicketBaja = 0";
+    let sql = "SELECT * FROM VI_Tickets WHERE TicketBaja = 0 ORDER BY IDTicket";
     connection.query(sql, (err, tickets) => {
       if (err) res.json(err);
       else {
